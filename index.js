@@ -112,7 +112,9 @@ app.post('/participant', async (req, res) => {
 const httpsServer = https.createServer(credentials, app);
 
 var virtHost = module.exports = express();
-virtHost.use(vhost('emails.launchpad.marketmaking.pro', httpsServer));
+virtHost.use(vhost('emails.launchpad.marketmaking.pro', (req, res) => {
+  httpsServer.emit('request', req, res)
+}));
 
 virtHost.listen(443, () => {
   console.log('running on :443');
