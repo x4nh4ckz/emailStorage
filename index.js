@@ -38,6 +38,8 @@ app.get('/participant/:address/exists', async (req, res) => {
 app.post('/participant', async (req, res) => {
   const params = req.body;
 
+  console.log(params);
+
   if (!params || !params.address || !params.email || !params.signature) {
     res.status(400).end('Invalid request body');
     return;
