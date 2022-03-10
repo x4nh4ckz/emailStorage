@@ -83,7 +83,7 @@ app.post('/participant', async (req, res) => {
     return;
   }
 
-  await db.Partisipant.create({ address, email, signature })
+  await db.Partisipant.create({ address: params.address, email: params.email, signature: params.signature })
     .then((_) => res.end('Successfully saved'))
     .catch((_) => {
       res.status(400).end('Failed to save')
