@@ -40,8 +40,8 @@ app.get('/participant/:address/exists', async (req, res) => {
   });
 });
 
-app.get('/.well-known/acme-challenge/W4Xb5QLa3z494zEmOD8E42Tjn8mEXoaNcGb6NAxPfS0', (req, res) => {
-  res.status(200).end('W4Xb5QLa3z494zEmOD8E42Tjn8mEXoaNcGb6NAxPfS0.mvOByQTfFh6umIzAu9kNHmPXI9TKQyZfcjgQqe4dgBo');
+app.get('/.well-known/acme-challenge/fcr0jU0w5byFaD6zjf80d5CuSZel5FFrxfmXLz3y_3I', (req, res) => {
+  res.status(200).end('fcr0jU0w5byFaD6zjf80d5CuSZel5FFrxfmXLz3y_3I.mvOByQTfFh6umIzAu9kNHmPXI9TKQyZfcjgQqe4dgBo');
 });
 
 app.post('/participant', async (req, res) => {
