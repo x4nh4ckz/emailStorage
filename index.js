@@ -70,25 +70,26 @@ app.post('/participant', async (req, res) => {
     return;
   }
 
-  const exists = await db.Partisipant.findAll({
+  db.Partisipant.findAll({
     where: {
       address: params.address
     }
-  })[0];
+  }).then(data => {
+    const exists = data[0];
+    console.log('address: ')
+    console.log(exists);
 
-  console.log('address: ')
-  console.log(exists);
+    if (!!exists) {
+      res.status(500).end('Email was already assigned to following address');
+      return;
+    }
 
-  if (!!exists) {
-    res.status(500).end('Email was already assigned to following address');
-    return;
-  }
-
-  await db.Partisipant.create({ address: params.address, email: params.email, signature: params.signature })
-    .then((_) => res.end('Successfully saved'))
-    .catch((_) => {
-      res.status(400).end('Failed to save')
-    });
+    await db.Partisipant.create({ address: params.address, email: params.email, signature: params.signature })
+      .then((_) => res.end('Successfully saved'))
+      .catch((_) => {
+        res.status(400).end('Failed to save')
+      });
+  });
 });
 
 app.listen(3005, () => {
