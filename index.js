@@ -72,10 +72,11 @@ app.post('/participant', async (req, res) => {
 
   const exists = await db.Partisipant.findAll({
     where: {
-      address: params.address.toString()
+      address: params.address
     }
   })[0];
 
+  console.log('address: ')
   console.log(exists);
 
   if (!!exists) {
