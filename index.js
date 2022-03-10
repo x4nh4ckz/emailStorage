@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bp = require('body-parser')
 const db = require('./models');
 
 const TEMPLATE_ADDRESS = '{address}';
@@ -10,6 +11,8 @@ const SIGN_MESSAGE_TEMPLATE = `I confirm that wallet ${TEMPLATE_ADDRESS} belongs
 const app = express();
 
 app.use(cors({origin: true}));
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true }));
 
 const validateEmail = (email) => {
   return email
