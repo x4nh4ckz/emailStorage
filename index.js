@@ -1,6 +1,7 @@
 const express = require('express');
+const vhost = require('vhost');
 const cors = require('cors');
-const bp = require('body-parser')
+const bp = require('body-parser');
 const db = require('./models');
 const {getAddress, verifyMessage} = require('ethers/lib/utils');
 
@@ -92,6 +93,9 @@ app.post('/participant', async (req, res) => {
   });
 });
 
-app.listen(3005, () => {
+var virtHost = module.exports = express();
+virtHost.use(vhost('emails.launchpad.marketmaking.pro', app));
+
+virtHost.listen(3005, () => {
   console.log('running on :3005');
 })
