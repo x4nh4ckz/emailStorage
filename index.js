@@ -74,7 +74,7 @@ app.post('/participant', async (req, res) => {
     where: {
       address: params.address
     }
-  }).then(data => {
+  }).then(async data => {
     const exists = data[0];
     console.log('address: ')
     console.log(exists);
