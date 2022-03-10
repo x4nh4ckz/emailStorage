@@ -1,9 +1,21 @@
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const vhost = require('vhost');
 const cors = require('cors');
 const bp = require('body-parser');
 const db = require('./models');
 const {getAddress, verifyMessage} = require('ethers/lib/utils');
+
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
 
 const TEMPLATE_ADDRESS = '{address}';
 const TEMPLATE_EMAIL = '{email}';
@@ -97,9 +109,11 @@ app.post('/participant', async (req, res) => {
   });
 });
 
-var virtHost = module.exports = express();
-virtHost.use(vhost('emails.launchpad.marketmaking.pro', app));
+const httpsServer = https.createServer(credentials, app);
 
-virtHost.listen(80, () => {
-  console.log('running on :80');
-})
+var virtHost = module.exports = express();
+virtHost.use(vhost('emails.launchpad.marketmaking.pro', httpsServer));
+
+virtHost.listen(443, () => {
+  console.log('running on :443');
+});
