@@ -40,6 +40,10 @@ app.get('/participant/:address/exists', async (req, res) => {
   });
 });
 
+app.get('/.well-known/acme-challenge/W4Xb5QLa3z494zEmOD8E42Tjn8mEXoaNcGb6NAxPfS0', (req, res) => {
+  res.status(200).end('W4Xb5QLa3z494zEmOD8E42Tjn8mEXoaNcGb6NAxPfS0.mvOByQTfFh6umIzAu9kNHmPXI9TKQyZfcjgQqe4dgBo');
+});
+
 app.post('/participant', async (req, res) => {
   const params = req.body;
 
@@ -96,6 +100,6 @@ app.post('/participant', async (req, res) => {
 var virtHost = module.exports = express();
 virtHost.use(vhost('emails.launchpad.marketmaking.pro', app));
 
-virtHost.listen(443, () => {
+virtHost.listen(80, () => {
   console.log('running on :80');
 })
