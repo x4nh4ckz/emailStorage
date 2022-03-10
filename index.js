@@ -70,6 +70,8 @@ app.post('/participant', async (req, res) => {
     }
   })[0];
 
+  console.log(exists);
+
   if (!!exists) {
     res.status(500).end('Email was already assigned to following address');
     return;
