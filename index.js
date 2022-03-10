@@ -72,7 +72,7 @@ app.post('/participant', async (req, res) => {
 
   const exists = await db.Partisipant.findAll({
     where: {
-      address: req.params.address.toString()
+      address: params.address.toString()
     }
   })[0];
 
