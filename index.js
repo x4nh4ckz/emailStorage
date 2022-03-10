@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bp = require('body-parser')
 const db = require('./models');
+const {getAddress, verifyMessage} = require('ethers/lib/utils');
 
 const TEMPLATE_ADDRESS = '{address}';
 const TEMPLATE_EMAIL = '{email}';
