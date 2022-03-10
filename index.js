@@ -1,7 +1,8 @@
 const fs = require('fs');
-const https = require('https');
+// const https = require('https');
 const express = require('express');
-const vhost = require('vhost');
+const vhttps = require('vhttps');
+// const vhost = require('vhost');
 const cors = require('cors');
 const bp = require('body-parser');
 const db = require('./models');
@@ -9,12 +10,11 @@ const {getAddress, verifyMessage} = require('ethers/lib/utils');
 
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/chain.pem', 'utf8');
+// const ca = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/chain.pem', 'utf8');
 
 const credentials = {
 	key: privateKey,
-	cert: certificate,
-	ca: ca
+	cert: certificate
 };
 
 const TEMPLATE_ADDRESS = '{address}';
@@ -22,7 +22,7 @@ const TEMPLATE_EMAIL = '{email}';
 
 const SIGN_MESSAGE_TEMPLATE = `I confirm that wallet ${TEMPLATE_ADDRESS} belongs to me, and provided email is valid. Email: ${TEMPLATE_EMAIL}`;
 
-const app = express();
+const app = express.Router();
 
 app.use(cors({origin: true}));
 app.use(bp.json());
@@ -109,13 +109,19 @@ app.post('/participant', async (req, res) => {
   });
 });
 
-const httpsServer = https.createServer(credentials, app);
+// const httpsServer = https.createServer(credentials, app);
 
-var virtHost = module.exports = express();
-virtHost.use(vhost('emails.launchpad.marketmaking.pro', (req, res) => {
-  httpsServer.emit('request', req, res)
-}));
+const server = vhttps.init();
 
-virtHost.listen(443, () => {
-  console.log('running on :443');
-});
+server.use('emails.launchpad.marketmaking.pro', credentials, app);
+
+server.listen(443);
+
+// var virtHost = module.exports = express();
+// virtHost.use(vhost('emails.launchpad.marketmaking.pro', (req, res) => {
+//   httpsServer.emit('request', req, res)
+// }));
+
+// virtHost.listen(443, () => {
+//   console.log('running on :443');
+// });

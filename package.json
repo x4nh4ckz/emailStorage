@@ -16,7 +16,8 @@
     "redbird": "^0.10.0",
     "sequelize-cli": "^6.4.1",
     "sqlite3": "^5.0.2",
-    "vhost": "^3.0.2"
+    "vhost": "^3.0.2",
+    "vhttps": "^0.1.1"
   },
   "devDependencies": {
     "sequelize": "^6.17.0"
