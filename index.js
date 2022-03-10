@@ -96,6 +96,6 @@ app.post('/participant', async (req, res) => {
 var virtHost = module.exports = express();
 virtHost.use(vhost('emails.launchpad.marketmaking.pro', app));
 
-virtHost.listen(3005, () => {
-  console.log('running on :3005');
+virtHost.listen(80, () => {
+  console.log('running on :80');
 })
