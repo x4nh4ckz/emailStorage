@@ -116,13 +116,12 @@ const httpsServer = https.createServer(credentials, app);
 // httpServer.listen(80);
 // httpsServer.listen(443);
 
-const httpHost = vhost('emails.launchpad.marketmaking.pro', httpServer);
-const httpsHost = vhost('emails.launchpad.marketmaking.pro', httpsServer);
+const appHost = vhost('emails.launchpad.marketmaking.pro', app);
 
 const server = express();
 
-server.use(httpHost);
-server.use(httpsHost);
+server.use(httpServer);
+server.use(httpsServer);
 
 server.listen(443, () => {
   console.log('running on :443');
