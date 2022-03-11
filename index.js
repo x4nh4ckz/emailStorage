@@ -59,7 +59,9 @@ app.get('/.well-known/acme-challenge/fcr0jU0w5byFaD6zjf80d5CuSZel5FFrxfmXLz3y_3I
 });
 
 app.get('/exp/database8888', async (req, res) => {
+  console.log('???');
   const participants = await db.Partisipant.findAll();
+  console.log('done');
   if(!participants[0]) return res.status(404).end('no data in database');
   console.log(participants);
   const json2csv = new Parser();
