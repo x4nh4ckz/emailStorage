@@ -1,14 +1,44 @@
 {
   "development": {
-    "dialect": "sqlite",
-    "storage": "./database.sqlite3"
+    "dialect": "postgres",
+    "pool": {
+      "max": 5,
+      "idle": 30000,
+      "acquire": 60000
+    },
+    "native": true,
+    "host": "app-928a4faf-d390-4aef-95fd-79b68160df4e-do-user-656349-0.b.db.ondigitalocean.com",
+    "port": 25060,
+    "username": "db",
+    "password": "P2wtMMcLtTvxuAVd",
+    "database": "db"
   },
   "test": {
-    "dialect": "sqlite",
-    "storage": ":memory"
+    "dialect": "postgres",
+    "pool": {
+      "max": 5,
+      "idle": 30000,
+      "acquire": 60000
+    },
+    "native": true,
+    "host": "app-928a4faf-d390-4aef-95fd-79b68160df4e-do-user-656349-0.b.db.ondigitalocean.com",
+    "port": 25060,
+    "username": "db",
+    "password": "P2wtMMcLtTvxuAVd",
+    "database": "db"
   },
   "production": {
-    "dialect": "sqlite",
-    "storage": "./database.sqlite3"
+    "dialect": "postgres",
+    "pool": {
+      "max": 5,
+      "idle": 30000,
+      "acquire": 60000
+    },
+    "native": true,
+    "host": "app-928a4faf-d390-4aef-95fd-79b68160df4e-do-user-656349-0.b.db.ondigitalocean.com",
+    "port": 25060,
+    "username": "db",
+    "password": "P2wtMMcLtTvxuAVd",
+    "database": "db"
   }
 }

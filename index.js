@@ -1,5 +1,6 @@
 // const fs = require('fs');
 // const http = require('http');
+require('dotenv').config();
 const https = require('https');
 const vhost = require('vhost');
 const exec = require('child_process').exec;
