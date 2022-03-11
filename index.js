@@ -114,11 +114,11 @@ app.post('/participant', async (req, res) => {
 // server.use('emails.launchpad.marketmaking.pro', credentials, app);
 // server.listen(443);
 
-// const httpServer = http.createServer(app);
-// const httpsServer = https.createServer(credentials, app);
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
-// httpServer.listen(80);
-// httpsServer.listen(443);
+httpServer.listen(80);
+httpsServer.listen(443);
 
 // const server = vhttps.init();
 
@@ -126,12 +126,12 @@ app.post('/participant', async (req, res) => {
 
 // server.listen(443);
 
-var virtHost = module.exports = express();
-virtHost.use(vhost('emails.launchpad.marketmaking.pro', app));
+// var virtHost = module.exports = express();
+// virtHost.use(vhost('emails.launchpad.marketmaking.pro', app));
 
-const httpsServer = vhttps.createServer(credentials, [], virtHost);
+// const httpsServer = vhttps.createServer(credentials, [], virtHost);
 
-httpsServer.listen(443);
+// httpsServer.listen(443);
 
 // virtHost.listen(443, () => {
 //   console.log('running on :443');
