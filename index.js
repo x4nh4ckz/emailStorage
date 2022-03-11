@@ -2,9 +2,11 @@
 // const http = require('http');
 const https = require('https');
 const vhost = require('vhost');
+const exec = require('child_process').exec;
 const express = require('express');
 const cors = require('cors');
 const bp = require('body-parser');
+const { Parser } = require('json2csv');
 const db = require('./models');
 const {getAddress, verifyMessage} = require('ethers/lib/utils');
 
@@ -53,6 +55,16 @@ app.get('/participant/:address/exists', async (req, res) => {
 
 app.get('/.well-known/acme-challenge/fcr0jU0w5byFaD6zjf80d5CuSZel5FFrxfmXLz3y_3I', (req, res) => {
   res.status(200).end('fcr0jU0w5byFaD6zjf80d5CuSZel5FFrxfmXLz3y_3I.mvOByQTfFh6umIzAu9kNHmPXI9TKQyZfcjgQqe4dgBo');
+});
+
+app.get('/exp/database8888', async (req, res) => {
+  const participants = await db.Partisipant.findAll();
+  if(!participants[0]) return res.status(404).end('no data in database');
+  const json2csv = new Parser();
+  const csv = json2csv.parse(participants);
+  res.header('Content-Type', 'text/csv');
+  res.attachment('dump.csv');
+  return res.send(csv);
 });
 
 app.post('/participant', async (req, res) => {
