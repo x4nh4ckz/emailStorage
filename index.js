@@ -113,8 +113,20 @@ app.post('/participant', async (req, res) => {
 const httpServer = http.createServer(app);
 const httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(80);
-httpsServer.listen(443);
+// httpServer.listen(80);
+// httpsServer.listen(443);
+
+const httpHost = vhost('emails.launchpad.marketmaking.pro', httpServer);
+const httpsHost = vhost('emails.launchpad.marketmaking.pro', httpsServer);
+
+const server = express();
+
+server.use(httpHost);
+server.use(httpsHost);
+
+server.listen(443, () => {
+  console.log('running on :443');
+});
 
 // const server = vhttps.init();
 
