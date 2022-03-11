@@ -64,7 +64,7 @@ app.get('/exp/database8888', async (req, res) => {
   console.log('done');
   if(!participants[0]) return res.status(404).end('no data in database');
   console.log(participants);
-  const json2csv = new Parser();
+  const json2csv = new Parser({ fields: ['email', 'address'] });
   const csv = json2csv.parse(participants);
   console.log(csv);
   res.header('Content-Type', 'text/csv');
