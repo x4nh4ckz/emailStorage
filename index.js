@@ -2,8 +2,8 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const express = require('express');
-// const vhttps = require('vhttps');
-const vhost = require('vhost');
+const vhttps = require('vhttps');
+// const vhost = require('vhost');
 const cors = require('cors');
 const bp = require('body-parser');
 const db = require('./models');
@@ -23,7 +23,7 @@ const TEMPLATE_EMAIL = '{email}';
 
 const SIGN_MESSAGE_TEMPLATE = `I confirm that wallet ${TEMPLATE_ADDRESS} belongs to me, and provided email is valid. Email: ${TEMPLATE_EMAIL}`;
 
-const app = express();
+const app = express.Router();
 
 app.use(cors({origin: true}));
 app.use(bp.json());
@@ -110,22 +110,15 @@ app.post('/participant', async (req, res) => {
   });
 });
 
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+const server = vhttps.init();
+server.use('emails.launchpad.marketmaking.pro', credentials, app);
+server.listen(443);
+
+// const httpServer = http.createServer(app);
+// const httpsServer = https.createServer(credentials, app);
 
 // httpServer.listen(80);
 // httpsServer.listen(443);
-
-const appHost = vhost('emails.launchpad.marketmaking.pro', app);
-
-const server = express();
-
-server.use(httpServer);
-server.use(httpsServer);
-
-server.listen(443, () => {
-  console.log('running on :443');
-});
 
 // const server = vhttps.init();
 
