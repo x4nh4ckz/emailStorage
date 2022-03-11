@@ -2,8 +2,8 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 const express = require('express');
-const vhttps = require('vhttps');
-const vhost = require('vhost');
+// const vhttps = require('vhttps');
+// const vhost = require('vhost');
 const cors = require('cors');
 const bp = require('body-parser');
 const db = require('./models');
@@ -23,7 +23,7 @@ const TEMPLATE_EMAIL = '{email}';
 
 const SIGN_MESSAGE_TEMPLATE = `I confirm that wallet ${TEMPLATE_ADDRESS} belongs to me, and provided email is valid. Email: ${TEMPLATE_EMAIL}`;
 
-const app = express.Router();
+const app = express();
 
 app.use(cors({origin: true}));
 app.use(bp.json());
