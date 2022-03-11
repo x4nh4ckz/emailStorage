@@ -1,4 +1,4 @@
-const fs = require('fs');
+// const fs = require('fs');
 // const http = require('http');
 const https = require('https');
 const vhost = require('vhost');
@@ -8,13 +8,13 @@ const bp = require('body-parser');
 const db = require('./models');
 const {getAddress, verifyMessage} = require('ethers/lib/utils');
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/cert.pem', 'utf8');
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/emails.launchpad.marketmaking.pro/cert.pem', 'utf8');
 
-const credentials = {
-	key: privateKey,
-	cert: certificate
-};
+// const credentials = {
+// 	key: privateKey,
+// 	cert: certificate
+// };
 
 const TEMPLATE_ADDRESS = '{address}';
 const TEMPLATE_EMAIL = '{email}';
@@ -108,13 +108,17 @@ app.post('/participant', async (req, res) => {
   });
 });
 
-var virtual = module.exports = express();
-virtual.use(vhost('emails.launchpad.marketmaking.pro', app));
+// var virtual = module.exports = express();
+// virtual.use(vhost('emails.launchpad.marketmaking.pro', app));
 
 // const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, virtual);
+// const httpsServer = https.createServer(credentials, virtual);
 
-httpsServer.listen(443);
+// httpsServer.listen(443);
 
 // httpServer.listen(80);
 // httpsServer.listen(443);
+
+app.listen(443, () => {
+  console.log('running on :443')
+})
