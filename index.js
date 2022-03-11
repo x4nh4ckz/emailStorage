@@ -1,5 +1,6 @@
 const fs = require('fs');
-// const https = require('https');
+const http = require('http');
+const https = require('https');
 const express = require('express');
 const vhttps = require('vhttps');
 // const vhost = require('vhost');
@@ -22,7 +23,7 @@ const TEMPLATE_EMAIL = '{email}';
 
 const SIGN_MESSAGE_TEMPLATE = `I confirm that wallet ${TEMPLATE_ADDRESS} belongs to me, and provided email is valid. Email: ${TEMPLATE_EMAIL}`;
 
-const app = express.Router();
+const app = express();
 
 app.use(cors({origin: true}));
 app.use(bp.json());
@@ -109,13 +110,17 @@ app.post('/participant', async (req, res) => {
   });
 });
 
-// const httpsServer = https.createServer(credentials, app);
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
 
-const server = vhttps.init();
+httpServer.listen(80);
+httpsServer.listen(443);
 
-server.use('emails.launchpad.marketmaking.pro', credentials, app);
+// const server = vhttps.init();
 
-server.listen(443);
+// server.use('emails.launchpad.marketmaking.pro', credentials, app);
+
+// server.listen(443);
 
 // var virtHost = module.exports = express();
 // virtHost.use(vhost('emails.launchpad.marketmaking.pro', (req, res) => {
